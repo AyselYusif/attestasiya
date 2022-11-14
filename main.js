@@ -9,7 +9,7 @@ class Message {
     }
     date = new Date()
     toHtml() {
-        return `<p>${this.date.getHours()}:${this.date.getMinutes()} ${this.author} ${this.text}</p></b>`
+        return `${this.date.getHours()}:${this.date.getMinutes()}    ${this.author}:  ${this.text}`
     }
 }
 
@@ -21,17 +21,18 @@ class Messenger {
 
     send(author, text) {
         const message = new Message(author, text)
-        this.allmessages.push(message.toHtml())
-        const p = document.createElement("p");
-        p.innerHTML = message.toHtml();
-        this.historyMessage.appendChild(p);
-    }
-    show_history() {
-        this.allmessages.forEach((item) => {
-            console.log(item.toHtml)
-        })
-    }
+        this.allmessages.push(message)
+       
 
+    }
+   
+show_history(){
+    const p = document.createElement("p");
+    p.innerHTML = this.allmessages.shift().toHtml();
+    this.historyMessage.appendChild(p); 
+
+
+}
 
 }
 let messenger = new Messenger();
@@ -42,4 +43,7 @@ sendBtn.addEventListener("click", () => {
     authorInput.value = "";
     messageInput.value = "";
     messenger.send(author, message);
+   messenger.show_history()
   });
+
+  
